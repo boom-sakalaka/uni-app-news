@@ -2,7 +2,7 @@
 	<view class="content">
 		<!-- 自定义导航栏 -->
 		<navbar></navbar>
-		<tab :list="tabList"></tab>
+		<tab :list="tabList" @tabClick="tabClick"></tab>
 	</view>
 </template>
 
@@ -22,6 +22,9 @@
 					const { data } = res
 					this.tabList = data
 				})
+			},
+			tabClick({data,index}){
+				
 			}
 		}
 	}
