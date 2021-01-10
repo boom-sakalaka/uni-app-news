@@ -2,9 +2,7 @@
 	<view class="content">
 		<!-- 自定义导航栏 -->
 		<navbar></navbar>
-		<view v-for="(item,index) in 100" :key="index">
-			{{item}}
-		</view>
+		<tab></tab>
 	</view>
 </template>
 
