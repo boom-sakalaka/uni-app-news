@@ -1,8 +1,13 @@
 <template>
-	<view class="content">
+	<view class="home">
 		<!-- 自定义导航栏 -->
 		<navbar></navbar>
 		<tab :list="tabList" @tabClick="tabClick"></tab>
+		<list-scroll>
+			<list-card mode="base"></list-card>
+			<list-card mode="image"></list-card>
+			<list-card mode="column"></list-card>
+		</list-scroll>
 	</view>
 </template>
 
@@ -31,7 +36,14 @@
 </script>
 
 <style lang="scss">
-	.content {
-		width: 100%;
+	page{
+		height: 100%;
+		display: flex;
+	}
+	.home {
+		display: flex;
+		flex-direction: column;
+		flex: 1;
+		overflow: hidden;
 	}
 </style>
