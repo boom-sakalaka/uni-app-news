@@ -3,15 +3,8 @@
 		<!-- 自定义导航栏 -->
 		<navbar></navbar>
 		<tab :list="tabList" @tabClick="tabClick"></tab>
-		<view class="scroll">
-			<scroll-view class="list-scroll" scroll-y @scrolltolower="loadmore">
-				<list-card mode="base"></list-card>
-				<list-card mode="image"></list-card>
-				<list-card mode="column"></list-card>
-				<list-card mode="base"></list-card>
-				<list-card mode="image"></list-card>
-				<list-card mode="column"></list-card>
-			</scroll-view>
+		<view class="home-list">
+			<list :tab="tabList"></list>
 		</view>
 	</view>
 </template>
@@ -58,16 +51,9 @@
 		flex-direction: column;
 		flex: 1;
 		overflow: hidden;
-		.scroll {
+		.home-list{
 			flex: 1;
-			height: 100%;
-			overflow: hidden;
 			box-sizing: border-box;
-			.list-scroll {
-				height: 100%;
-				display: flex;
-				flex-direction: column;
-			}
 		}
 	}
 </style>
