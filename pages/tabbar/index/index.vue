@@ -2,9 +2,9 @@
 	<view class="home">
 		<!-- 自定义导航栏 -->
 		<navbar></navbar>
-		<tab :list="tabList" @tabClick="tabClick"></tab>
+		<tab :list="tabList" :tabIndex="tabIndex" @tabClick="tabClick"></tab>
 		<view class="home-list">
-			<list :tab="tabList"></list>
+			<list :tab="tabList" :activeIndex="activeIndex" @change="change"></list>
 		</view>
 	</view>
 </template>
@@ -13,7 +13,9 @@
 	export default {
 		data() {
 			return {
-				tabList: []
+				tabList: [],
+				tabIndex: 0,
+				activeIndex: 0,
 			}
 		},
 		onLoad() {
@@ -34,7 +36,10 @@
 				data,
 				index
 			}) {
-
+				this.activeIndex = index
+			},
+			change(current) {
+				this.tabIndex = current
 			}
 		}
 	}
@@ -51,7 +56,8 @@
 		flex-direction: column;
 		flex: 1;
 		overflow: hidden;
-		.home-list{
+
+		.home-list {
 			flex: 1;
 			box-sizing: border-box;
 		}
