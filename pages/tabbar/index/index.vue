@@ -29,6 +29,9 @@
 					const {
 						data
 					} = res
+					data.unshift({
+						name: '全部'
+					})
 					this.tabList = data
 				})
 			},

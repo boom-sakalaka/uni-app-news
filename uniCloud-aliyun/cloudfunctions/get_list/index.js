@@ -3,12 +3,17 @@ const db = uniCloud.database()
 exports.main = async (event, context) => {
 	const { name } = event
 	
+	let matchObj = {}
+	if(name !== '全部'){
+		matchObj = {
+			classify: name
+		}
+	}
+	
 	// 聚合 ： 更精细化的去处理数据 求和 分组 指定字段
 	const list = await db.collection('article')
 	.aggregate()
-	.match({
-		classify: name
-	})
+	.match(matchObj)
 	.project({
 		content : false
 	})
