@@ -1,7 +1,11 @@
 'use strict';
 const db = uniCloud.database()
 exports.main = async (event, context) => {
-	const { name } = event
+	const { 
+			name,
+			page = 1,
+			pageSize = 10,
+		 } = event
 	
 	let matchObj = {}
 	if(name !== '全部'){
@@ -17,6 +21,8 @@ exports.main = async (event, context) => {
 	.project({
 		content : false
 	})
+	.skip(pageSize * (page -1))
+	.limit(pageSize)
 	.end()
 	
 	

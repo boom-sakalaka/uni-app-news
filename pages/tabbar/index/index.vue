@@ -33,7 +33,7 @@
 						name: '全部'
 					})
 					this.tabList = data
-				})
+				}) 
 			},
 			tabClick({
 				data,
@@ -43,6 +43,7 @@
 			},
 			change(current) {
 				this.tabIndex = current
+				this.activeIndex = current
 			}
 		}
 	}
