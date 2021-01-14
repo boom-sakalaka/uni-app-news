@@ -9,10 +9,10 @@
 <script>
 	import listItem from './list-item.vue'
 	export default {
-		props:{
+		props: {
 			tab: {
 				type: Array,
-				default() {
+				default () {
 					return []
 				}
 			},
@@ -21,42 +21,48 @@
 				default: 0
 			}
 		},
-		components:{
+		components: {
 			listItem
 		},
 		data() {
 			return {
 				list: [],
 				// js限制  这种赋值方式listCatchData[index] js认为没有更新
-				listCatchData : {}
+				listCatchData: {}
 			};
 		},
-		watch:{
-				tab(newVal){
-					if(newVal.length === 0) return
-					this.getList(this.activeIndex)
-				}
+		watch: {
+			tab(newVal) {
+				if (newVal.length === 0) return
+				this.getList(this.activeIndex)
+			}
 		},
 		created() {
 			// tab 还没有赋值
 			// this.getList(0)
 		},
-		methods:{
-			change(e){
-				const { current } = e.detail
+		methods: {
+			change(e) {
+				const {
+					current
+				} = e.detail
 				// console.log(this.tab[current])
-				this.getList(current)
 				this.$emit('change', current)
-				
+				if (!this.listCatchData[current] || this.listCatchData[current].length === 0) {
+					this.getList(current)
+				}
 			},
 			getList(current) {
 				this.$api.get_list({
 					name: this.tab[current].name
-					}).then(res => {
-					const { data } = res
+				}).then(res => {
+					const {
+						data
+					} = res
+					console.log(data)
 					// this.list = data
 					// this.listCatchData[current] = data
-					this.$set(this.listCatchData,current,data)
+					this.$set(this.listCatchData, current, data)
 				})
 			}
 		}
