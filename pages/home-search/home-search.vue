@@ -1,6 +1,6 @@
 <template>
 	<view class="home">
-		<navbar :isSearch="true" @input="change"></navbar>
+		<navbar :isSearch="true" v-model="value" @input="change"></navbar>
 		<view class="home-list">
 			<view v-if="is_histroy" class="label-box">
 				<view class="label-header">
@@ -8,8 +8,8 @@
 					<text class="label-clear">清空</text>
 				</view>
 				<view class="label-content" v-if="historyLists.length > 0">
-					<view v-for="item in historyLists" class="label-content_item">
-						{{item.name}} 内容
+					<view v-for="item in historyLists" class="label-content_item" @click="openHistroy(item)">
+						{{item.name}}
 					</view>
 				</view>
 				<view class="no-data" v-else>
@@ -17,7 +17,11 @@
 				</view>
 			</view>
 			<list-scroll v-else class="list-scroll">
-				<list-card mode="base" :item="item" v-for="item in searchList" :key="item._id"></list-card>
+				<uni-load-more status="loading" iconType="snow" v-if="loading"></uni-load-more>
+				<view v-if="searchList.length">
+					<list-card mode="base" :item="item" v-for="item in searchList" :key="item._id" @click="setHistory"></list-card>
+				</view>
+				<view v-if="searchList.len === 0 && !loading"  class="no-data">没有搜索到相关数据</view>
 			</list-scroll>
 		</view>
 	</view>
@@ -30,15 +34,17 @@
 	export default {
 		data() {
 			return {
+				value: '',
 				is_histroy: true,
 				searchList: [],
+				loading:false
 			}
 		},
 		computed: {
 			...mapState(['historyLists'])
 		},
 		methods: {
-			change(value) {
+			change(value) {	
 				if (!value) {
 					clearTimeout(this.timer)
 					this.mark = false
@@ -54,6 +60,7 @@
 				}
 			},
 			getSearch(value) {
+				this.loading = true
 				if (!value) {
 					this.searchList = []
 					this.is_histroy = true
@@ -67,9 +74,20 @@
 						data
 					} = res
 					console.log(data)
-
+					this.loading = false
 					this.searchList = data
+				}).catch(e => {
+					this.loading = false
 				})
+			},
+			setHistory() {
+				this.$store.dispatch('set_history', {
+					name: this.value
+				})
+			},
+			openHistroy(item){
+				this.value = item.name
+				this.getSearch(this.value)
 			}
 		}
 	}
