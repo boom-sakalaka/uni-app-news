@@ -4,7 +4,7 @@
 			<view :style="{height: statusBarHeight + 'px'}"></view>
 			<view class="navbar-content" :class="{search:isSearch}" :style="{height: navBarHeight + 'px',width: windowWidth + 'px'}"
 			 @click.stop="open">
-				<view class="navbar-content_search-icons">
+				<view v-if="isSearch" class="navbar-content_search-icons" @click="back">
 					<uni-icons type="back" size="22" color="#fff"></uni-icons>
 				</view>
 				<!-- 非搜索页显示 -->
@@ -75,6 +75,11 @@
 			inputChange(e) {
 				const { value } = e.detail
 				this.$emit('input',value)
+			},
+			back() {
+				uni.switchTab({
+					url: "/pages/tabbar/index/index"
+				})
 			}
 		}
 	}

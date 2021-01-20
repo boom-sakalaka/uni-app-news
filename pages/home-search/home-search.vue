@@ -5,10 +5,10 @@
 			<view v-if="is_histroy" class="label-box">
 				<view class="label-header">
 					<text class="label-title">搜索历史</text>
-					<text class="label-clear">清空</text>
+					<text class="label-clear" @click="clear">清空</text>
 				</view>
 				<view class="label-content" v-if="historyLists.length > 0">
-					<view v-for="item in historyLists" class="label-content_item" @click="openHistroy(item)">
+					<view v-for="(item,index) in historyLists" class="label-content_item" key="index" @click="openHistroy(item)">
 						{{item.name}}
 					</view>
 				</view>
@@ -88,6 +88,12 @@
 			openHistroy(item){
 				this.value = item.name
 				this.getSearch(this.value)
+			},
+			clear () {
+				this.$store.dispatch('clear_history')
+				uni.showToast({
+					title: '清除成功'
+				})
 			}
 		}
 	}
