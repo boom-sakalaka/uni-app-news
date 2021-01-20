@@ -2,7 +2,7 @@
 	<view class="home">
 		<navbar :isSearch="true" @input="change"></navbar>
 		<view class="home-list">
-			<view class="label-box">
+			<view v-if="is_histroy" class="label-box">
 				<view class="label-header">
 					<text class="label-title">搜索历史</text>
 					<text class="label-clear">清空</text>
@@ -11,13 +11,14 @@
 					<view v-for="item in historyLists" class="label-content_item">
 						{{item.name}} 内容
 					</view>
-
 				</view>
 				<view class="no-data" v-else>
 					没有搜索历史
 				</view>
 			</view>
-			<button type="default" @click="test">测试</button>
+			<list-scroll v-else class="list-scroll">
+				<list-card mode="base" :item="item" v-for="item in searchList" :key="item._id"></list-card>
+			</list-scroll>
 		</view>
 	</view>
 </template>
@@ -29,7 +30,8 @@
 	export default {
 		data() {
 			return {
-
+				is_histroy: true,
+				searchList: [],
 			}
 		},
 		computed: {
@@ -37,11 +39,36 @@
 		},
 		methods: {
 			change(value) {
-				console.log(value)
+				if (!value) {
+					clearTimeout(this.timer)
+					this.mark = false
+					this.getSearch()
+					return
+				}
+				if (!this.mark) {
+					this.mark = true
+					this.timer = setTimeout(() => {
+						this.mark = false
+						this.getSearch(value)
+					}, 1000)
+				}
 			},
-			test() {
-				this.$store.dispatch('set_history', {
-					name: 'test'
+			getSearch(value) {
+				if (!value) {
+					this.searchList = []
+					this.is_histroy = true
+					return
+				}
+				this.is_histroy = false
+				this.$api.get_search({
+					value
+				}).then(res => {
+					const {
+						data
+					} = res
+					console.log(data)
+
+					this.searchList = data
 				})
 			}
 		}
