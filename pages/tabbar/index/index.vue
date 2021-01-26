@@ -24,7 +24,7 @@
 		methods: {
 			getLabel() {
 				this.$api.get_label({
-					name: 'get_label'
+					type: 'all'
 				}).then(res => {
 					const {
 						data
@@ -33,7 +33,7 @@
 						name: '全部'
 					})
 					this.tabList = data
-				}) 
+				})
 			},
 			tabClick({
 				data,
