@@ -12,6 +12,17 @@
 				</view>
 			</view>
 		</view>
+		<view class="label-box">
+			<view class="label-header">
+				<view class="label-title">标签推荐</view>
+			</view>
+			<view class="label-content">
+				<view class="label-content__item" v-for="(item,index) in 10">
+					{{item}} 标签
+					<uni-icons type="clear" size="20" color="red" class="icons-close"></uni-icons>
+				</view>
+			</view>
+		</view>
 	</view>
 </template>
 
@@ -33,7 +44,10 @@
 		background-color: #f5f5f5;
 	}
 	.label {
-		background-color: #FFFFFF;
+		.label-box {
+			background-color: #FFFFFF;
+			margin-bottom: 10px;
+		}
 		margin-bottom: 10px;
 		.label-header {
 			display: flex;
