@@ -23,9 +23,7 @@
 		},
 		methods: {
 			getLabel() {
-				this.$api.get_label({
-					type: 'all'
-				}).then(res => {
+				this.$api.get_label().then(res => {
 					const {
 						data
 					} = res
