@@ -1,6 +1,6 @@
 <template>
 	<swiper class="home-swiper" :current="activeIndex" @change="change">
-		<swiper-item class="swiper-item" v-for="(item,index) in tab" :key="index">
+		<swiper-item class="swiper-item" v-for="(item,index) in tab" :key="item._id">
 			<list-item :list="listCatchData[index]" @loadmore="loadmore" :load="load[index]"></list-item>
 		</swiper-item>
 	</swiper>
@@ -36,6 +36,8 @@
 		watch: {
 			tab(newVal) {
 				if (newVal.length === 0) return
+				this.listCatchData = {}
+				this.load = {}
 				this.getList(this.activeIndex)
 			}
 		},

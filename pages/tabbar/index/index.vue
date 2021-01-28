@@ -19,6 +19,12 @@
 			}
 		},
 		onLoad() {
+			uni.$on('labelChange', () => {
+				this.tabList = []
+				this.tabIndex = 0
+				this.activeIndex = 0
+				this.getLabel()
+			})
 			this.getLabel()
 		},
 		methods: {

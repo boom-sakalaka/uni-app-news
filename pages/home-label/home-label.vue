@@ -45,6 +45,7 @@
 			}
 		},
 		onLoad() {
+			// 自定义事件 只能在打开的页面触发
 			this.getLabel()
 		},
 		methods: {
@@ -82,8 +83,9 @@
 					uni.hideLoading()
 					uni.showToast({
 						title: '更新成功',
-						icon:'none'
+						icon: 'none'
 					})
+					uni.$emit('labelChange')
 				}).catch(e => {
 					uni.hideLoading()
 				})
@@ -96,7 +98,7 @@
 				if (!this.is_edit) return
 				this.labelList.push(this.list[index])
 				this.list.splice(index, 1)
-			},
+			}
 		}
 	}
 </script>
@@ -153,7 +155,8 @@
 			}
 		}
 	}
-	.no-data{
+
+	.no-data {
 		width: 100%;
 		text-align: center;
 		padding: 50px 0;
