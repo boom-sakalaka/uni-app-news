@@ -91,7 +91,10 @@
 		},
 		methods:{
 			open() {
-				this.$emit('click',this.item)
+				this.$emit('click',this.item);
+				uni.navigateTo({
+					url: '/pages/home-detail/home-detail'
+				})
 			}
 		}
 	}

@@ -51,7 +51,7 @@
 		methods: {
 			editLabel() {
 				// this.is_edit = !this.is_edit
-				true // 正在编辑
+				//true // 正在编辑
 				if (this.is_edit) {
 					this.is_edit = false
 					this.setUpdateLabel(this.labelList)
