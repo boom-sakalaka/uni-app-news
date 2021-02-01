@@ -25,8 +25,8 @@
 			</view>
 			<view class="detail-comment">
 				<view class="comment-title">最新评论</view>
-				<view class="comment-content">
-					<comments-box></comments-box>
+				<view class="comment-content" v-for="item in commentsList" :key="item.comment_id">
+					<comments-box :comments="item"></comments-box>
 				</view>
 			</view>
 		</view>
@@ -72,17 +72,20 @@
 			return {
 				formData : {},
 				noData: '<p style="text-align:center;color:#666;">详情加载中......</p>',
-				commnetValue: ''
+				commnetValue: '',
+				commentsList : []
 			}
 		},
 		onLoad(query) {
 			this.formData = JSON.parse(query.params)
 			this.getDetial()
+			this.getComments()
 		},
 		onReady() {
 			//this.$refs.popup.open()
 		},
 		methods: {
+			// 获取详情信息
 			getDetial() {
 				this.$api.get_detail({
 					article_id : this.formData._id
@@ -90,6 +93,16 @@
 					// console.log(res)
 					const {data} = res
 					this.formData = data
+				})
+			},
+			// 请求评论信息
+			getComments() {
+				this.$api.get_comments({
+					article_id: this.formData._id
+				}).then(res => {
+					console.log(res)
+					const {data} = res
+					this.commentsList = data
 				})
 			},
 			setUpdateComment(content) {

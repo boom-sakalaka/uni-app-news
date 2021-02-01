@@ -2,21 +2,29 @@
 	<view class="comments-box">
 		<view class="comments-header">
 			<view class="comments-header__logo">
-				<image src="/static/logo.png" mode="aspectFill"></image>
+				<image :src="comments.author.avatar" mode="aspectFill"></image>
 			</view>
 			<view class="comments-header__info">
-				<view class="title">meHaoTian</view>
-				<view>2020-03-03</view>
+				<view class="title">{{comments.author.author_name}}</view>
+				<view>{{comments.create_time}}</view>
 			</view>
 		</view>
 		<view class="comments-content">
-			<view>uni-app 是一个很棒的前端框架</view>
+			<view>{{comments.comment_content}}</view>
 		</view>
 	</view>
 </template>
 
 <script>
 	export default {
+		props:{
+			comments: {
+				type: Object,
+				default () {
+					return {}
+				}
+			}
+		},
 		data() {
 			return {
 				
