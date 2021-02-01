@@ -4,7 +4,7 @@
 		<view v-if="item.mode === 'base'" class="listcard">
 			<view class="listcard-image">
 				<image :src="item.cover[0]" mode="aspectFill"></image>
-			</view>	
+			</view>
 			<view class="listcard-content">
 				<view class="listcard-content_title">
 					<text>{{item.title}}</text>
@@ -22,7 +22,7 @@
 				</view>
 			</view>
 		</view>
-		
+
 		<!-- 多图模式 -->
 		<view v-if="item.mode === 'column'" class="listcard mode-column">
 			<view class="listcard-content">
@@ -31,14 +31,14 @@
 					<like :item="item"></like>
 				</view>
 				<view class="listcard-image">
-					<view v-if="index < 3"  v-for="(item,index) in item.cover" :key="index" class="listcard-image_item">
+					<view v-if="index < 3" v-for="(item,index) in item.cover" :key="index" class="listcard-image_item">
 						<image :src="item" mode="aspectFill"></image>
 					</view>
 				</view>
 				<view class="listcard-content_des">
 					<view class="listcard-content_des-label">
 						<view class="listcard-content_des-label-item">
-								{{item.classify}}
+							{{item.classify}}
 						</view>
 					</view>
 					<view class="listcard-content_des-browe">
@@ -47,7 +47,7 @@
 				</view>
 			</view>
 		</view>
-		
+
 		<!-- 大图模式 -->
 		<view v-if="item.mode === 'image'" class="listcard mode-image">
 			<view class="listcard-image">
@@ -58,7 +58,7 @@
 					<text>{{item.title}}</text>
 					<like :item="item"></like>
 				</view>
-		
+
 				<view class="listcard-content_des">
 					<view class="listcard-content_des-label">
 						<view class="listcard-content_des-label-item">
@@ -79,21 +79,31 @@
 		props: {
 			item: {
 				type: Object,
-				default() {
+				default () {
 					return {}
 				}
 			}
-		}, 
+		},
 		data() {
 			return {
-				
+
 			};
 		},
-		methods:{
+		methods: {
 			open() {
-				this.$emit('click',this.item);
+				const item = this.item
+				this.$emit('click', item);
+				//console.log(this.item)
+				const params = {
+					_id: item._id,
+					title: item.title,
+					create_time: item.create_time,
+					thumbs_up_count: item.thumbs_up_count,
+					browse_count: item.browse_count,
+					author: item.author
+				}
 				uni.navigateTo({
-					url: '/pages/home-detail/home-detail'
+					url: '/pages/home-detail/home-detail?params='+JSON.stringify(params)
 				})
 			}
 		}

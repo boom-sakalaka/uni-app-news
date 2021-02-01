@@ -49,7 +49,7 @@
             "path" : "pages/home-detail/home-detail",
             "style" :                                                                                    
             {
-                "navigationBarTitleText": "",
+                "navigationBarTitleText": "文章详情",
                 "enablePullDownRefresh": false
             }
             

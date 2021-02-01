@@ -1,20 +1,20 @@
 <template>
 	<view class="detail">
 		<view class="detail-title">
-			我是一个前端开发者，我到底要不要学node
+			{{formData.title}}
 		</view>
 		<view class="detail-header">
 			<view class="detail-header__logo">
-				<image src="../../static/follow-active.png" mode="aspectFill"></image>
+				<image :src="formData.author.avatar" mode="aspectFill"></image>
 			</view>
 			<view class="detail-header__content">
 				<view class="detail-header__content-title">
-					Mehaotian
+					{{formData.author.author_name}}
 				</view>
 				<view class="detail-header__content-info">
-					<text>2020-03-21</text>
-					<text>1234 浏览</text>
-					<text>2345 赞</text>
+					<text>{{formData.create_time}}</text>
+					<text>{{formData.browse_count}} 浏览</text>
+					<text>{{formData.thumbs_up_count}} 赞</text>
 				</view>
 			</view>
 		</view>
@@ -45,8 +45,11 @@
 	export default {
 		data() {
 			return {
-
+				formData : {}
 			}
+		},
+		onLoad(query) {
+			this.formData = JSON.parse(query.params)
 		},
 		methods: {
 
