@@ -101,7 +101,7 @@
 				this.$api.get_comments({
 					article_id: this.formData._id
 				}).then(res => {
-					console.log(res)
+					//console.log(res)
 					const {data} = res
 					this.commentsList = data
 				})
@@ -119,15 +119,21 @@
 					})
 					this.getComments()
 					this.$refs.popup.close()
+					this.replyFormData = {}
+					this.commnetValue = ''
 					// console.log(res)
 				})
 			},
 			reply(e){
 				this.replyFormData = {
-					"comment_id" : e.comment_id
+					"comment_id" : e.comments.comment_id,
+					"is_reply": e.is_reply
 				}
+				if(e.comments.reply_id){
+					this.replyFormData.reply_id = e.comments.reply_id
+				}
+				//console.log(this.replyFormData)
 				this.openComment()
-				// console.log(this.replyFormData)
 			},
 			openComment() {
 				this.$refs.popup.open()
