@@ -17,11 +17,12 @@
 					<text>{{formData.thumbs_up_count}} 赞</text>
 				</view>
 			</view>
+			<button class="detail-header__button" type="default">关注</button>
 		</view>
 		<view class="detail-content">
 			<view class="detail-html">
-				<!-- <u-parse :content="formData.content" :noData="noData"></u-parse> -->
-				内容
+				<u-parse :content="formData.content" :noData="noData"></u-parse>
+				<!-- 内容 -->
 			</view>
 			<view class="detail-comment">
 				<view class="comment-title">最新评论</view>
@@ -209,6 +210,13 @@
 					margin-right: 10px;
 				}
 			}
+		}
+		.detail-header__button {
+			flex-shrink: 0;
+			height: 30px;
+			font-size: 12px;
+			color: #fff;
+			background-color: $mk-base-color;
 		}
 	}
 
