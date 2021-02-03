@@ -142,7 +142,8 @@
 					uni.hideLoading()
 					this.formData.is_author_like = !this.formData.is_author_like
 					uni.showToast({
-						title: this.formData.is_author_like ? '关注成功' : '取消关注成功'
+						title: this.formData.is_author_like ? '关注成功' : '取消关注成功',
+						icon: 'none'
 					})
 				}).catch(e => {
 					uni.hideLoading()
@@ -154,7 +155,8 @@
 					uni.hideLoading()
 					this.formData.is_like = !this.formData.is_like
 					uni.showToast({
-						title: this.formData.is_like ? '收藏成功' : '取消收藏成功'
+						title: this.formData.is_like ? '收藏成功' : '取消收藏成功',
+						icon: 'none'
 					})
 				}).catch(e => {
 					uni.hideLoading()
