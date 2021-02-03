@@ -13,7 +13,7 @@ exports.main = async (event, context) => {
 	.aggregate()
 	.addFields({
 		// 是否关注作者
-		is_author_like : $.in(['$author.id',user.$author_likes_ids || []]),
+		is_author_like : $.in(['$author.id',user.author_likes_ids || []]),
 		// 是否收藏文章
 		is_like: $.in(['$_id',user.article_id_ids || []]),
 		// 是否点赞
