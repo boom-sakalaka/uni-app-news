@@ -43,7 +43,7 @@
 					<uni-icons type="chat" size="22" color="#F07373"></uni-icons>
 				</view>
 				<view class="detail-bottom__icons-box">
-					<uni-icons type="heart" size="22" color="#F07373"></uni-icons>
+					<uni-icons :type="formData.is_like ? 'heart-filled': 'heart'" size="22" color="#F07373" @click="likeTap(formData._id)"></uni-icons>
 				</view>
 				<view class="detail-bottom__icons-box">
 					<uni-icons type="hand-thumbsup" size="22" color="#F07373"></uni-icons>
@@ -89,6 +89,11 @@
 			//this.$refs.popup.open()
 		},
 		methods: {
+			// 收藏
+			likeTap (article_id) {
+				// console.log('收藏')
+				this.setUpdateLike(article_id)
+			},
 			// 关注
 			follow (author_id) {
 				this.setUpdateAuthor(author_id)
@@ -141,7 +146,18 @@
 					})
 				}).catch(e => {
 					uni.hideLoading()
-					
+				})
+			},
+			setUpdateLike (article_id) {
+				uni.showLoading()
+				this.$api.update_likes({article_id}).then(res => {
+					uni.hideLoading()
+					this.formData.is_like = !this.formData.is_like
+					uni.showToast({
+						title: this.formData.is_like ? '收藏成功' : '取消收藏成功'
+					})
+				}).catch(e => {
+					uni.hideLoading()
 				})
 			},
 			reply(e){
