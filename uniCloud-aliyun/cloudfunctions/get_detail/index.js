@@ -15,7 +15,7 @@ exports.main = async (event, context) => {
 		// 是否关注作者
 		is_author_like : $.in(['$author.id',user.author_likes_ids || []]),
 		// 是否收藏文章
-		is_like: $.in(['$_id',user.article_id_ids || []]),
+		is_like: $.in(['$_id',user.article_likes_ids || []]),
 		// 是否点赞
 		is_thumbs_up : $.in(['$_id',user.thumbs_up_article_ids || []])
 	})

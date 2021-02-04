@@ -40,13 +40,13 @@
 			</view>
 			<view class="detail-bottom__icons">
 				<view class="detail-bottom__icons-box">
-					<uni-icons type="chat" size="22" color="#F07373"></uni-icons>
+					<uni-icons type="chat" size="22" color="#F07373" @click="openDetailComments"></uni-icons>
 				</view>
 				<view class="detail-bottom__icons-box">
 					<uni-icons :type="formData.is_like ? 'heart-filled': 'heart'" size="22" color="#F07373" @click="likeTap(formData._id)"></uni-icons>
 				</view>
 				<view class="detail-bottom__icons-box">
-					<uni-icons type="hand-thumbsup" size="22" color="#F07373"></uni-icons>
+					<uni-icons :type="formData.is_thumbs_up?'hand-thumbsup-filled':'hand-thumbsup'" size="22" color="#F07373" @click="thumbsup(formData._id)"></uni-icons>
 				</view>
 			</view>
 		</view>
@@ -89,6 +89,17 @@
 			//this.$refs.popup.open()
 		},
 		methods: {
+			// 打开详情评论
+			openDetailComments () {
+				// console.log('打开详情评论')
+				uni.navigateTo({
+					url: '../detail-comments/detail-comments?id='+ this.formData._id
+				})
+			},
+			// 点赞
+			thumbsup(article_id) {
+				this.setUpdateThumbs(article_id)
+			},
 			// 收藏
 			likeTap (article_id) {
 				// console.log('收藏')
@@ -154,10 +165,28 @@
 				this.$api.update_likes({article_id}).then(res => {
 					uni.hideLoading()
 					this.formData.is_like = !this.formData.is_like
+					uni.$emit('update_article')
 					uni.showToast({
 						title: this.formData.is_like ? '收藏成功' : '取消收藏成功',
 						icon: 'none'
 					})
+				}).catch(e => {
+					uni.hideLoading()
+				})
+			},
+			setUpdateThumbs(article_id) {
+				uni.showLoading()
+				this.$api.update_thumbsup({
+					article_id
+				}).then(res => {
+					uni.hideLoading()
+					this.formData.is_thumbs_up = true
+					this.formData.thumbs_up_count++
+					uni.showToast({
+						title: res.msg,
+						icon: 'none'
+					})
+					console.log(res)
 				}).catch(e => {
 					uni.hideLoading()
 				})
