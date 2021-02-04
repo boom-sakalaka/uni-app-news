@@ -77,7 +77,9 @@
 				noData: '<p style="text-align:center;color:#666;">详情加载中......</p>',
 				commnetValue: '',
 				commentsList : [],
-				replyFormData: {}
+				replyFormData: {},
+				page: 1,
+				pageSize: 10,
 			}
 		},
 		onLoad(query) {
@@ -112,7 +114,7 @@
 			// 获取详情信息
 			getDetial() {
 				this.$api.get_detail({
-					article_id : this.formData._id
+					article_id : this.formData._id,
 				}).then(res => {
 					// console.log(res)
 					const {data} = res
@@ -122,7 +124,9 @@
 			// 请求评论信息
 			getComments() {
 				this.$api.get_comments({
-					article_id: this.formData._id
+					article_id: this.formData._id,
+					page: this.page,
+					pageSize: this.pageSize
 				}).then(res => {
 					//console.log(res)
 					const {data} = res
