@@ -8,7 +8,7 @@
 			</view>
 		</view>
 		<view class="follow-list">
-			<swiper class="follow-list__swiper">
+			<swiper class="follow-list__swiper" :current="activeIndex" @change="change">
 				<swiper-item>
 					<list-scroll>
 						<uni-load-more status="loading" v-if="list.length === 0 && !articleShow "></uni-load-more>
@@ -17,7 +17,10 @@
 					</list-scroll>
 				</swiper-item>
 				<swiper-item>
-					<list-scroll></list-scroll>
+					<list-scroll>
+						<list-author v-for="item in  authorLists" :key="item.id" :item="item"></list-author>
+						<view class="no-data" v-if="followShow">没有关注作者</view>
+					</list-scroll>
 				</swiper-item>
 			</swiper>
 		</view>
@@ -30,13 +33,19 @@
 			return {
 				activeIndex: 0,
 				list: [],
-				articleShow: false
+				authorLists: [],
+				articleShow: false,
+				followShow: false
 			}
 		},
 		onLoad() {
 			this.getFollowData()
+			this.getAuhtor()
 			uni.$on('update_article', () => {
 				this.getFollowData()
+			})
+			uni.$on('update_author', () => {
+				this.getAuhtor()
 			})
 		},
 		methods: {
@@ -52,6 +61,20 @@
 					this.list = data
 					this.articleShow = this.list.length === 0
 				})
+			},
+			getAuhtor() {
+				this.$api.get_author().then(res => {
+					console.log(res);
+					const {
+						data
+					} = res
+					this.authorLists = data
+					this.followShow = this.authorLists.length === 0 ? true : false
+				})
+			},
+			change(e) {
+				const current = e.detail.current
+				this.activeIndex = current
 			}
 		}
 	}
@@ -114,6 +137,7 @@
 			}
 		}
 	}
+
 	.no-data {
 		padding: 50px;
 		font-size: 14px;
