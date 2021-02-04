@@ -12,6 +12,10 @@
 				default () {
 					return {}
 				}
+			},
+			types :{
+				type: String,
+				default: ''
 			}
 		},
 		data() {
@@ -38,6 +42,7 @@
 					article_id: this.item._id
 				}).then(res => {
 					uni.hideLoading()
+					uni.$emit('update_article',this.types)
 				}).catch(() => {
 					uni.hideLoading()
 				})

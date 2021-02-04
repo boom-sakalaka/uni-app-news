@@ -8,7 +8,7 @@
 			<view class="listcard-content">
 				<view class="listcard-content_title">
 					<text>{{item.title}}</text>
-					<like :item="item"></like>
+					<like :item="item" :types="types"></like>
 				</view>
 				<view class="listcard-content_des">
 					<view class="listcard-content_des-label">
@@ -28,7 +28,7 @@
 			<view class="listcard-content">
 				<view class="listcard-content_title">
 					<text>{{item.title}}</text>
-					<like :item="item"></like>
+					<like :item="item" :types="types"></like>
 				</view>
 				<view class="listcard-image">
 					<view v-if="index < 3" v-for="(item,index) in item.cover" :key="index" class="listcard-image_item">
@@ -56,7 +56,7 @@
 			<view class="listcard-content">
 				<view class="listcard-content_title">
 					<text>{{item.title}}</text>
-					<like :item="item"></like>
+					<like :item="item" :types="types"></like>
 				</view>
 
 				<view class="listcard-content_des">
@@ -82,6 +82,10 @@
 				default () {
 					return {}
 				}
+			},
+			types :{
+				type: String,
+				default: ''
 			}
 		},
 		data() {
