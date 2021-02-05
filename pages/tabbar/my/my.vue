@@ -26,7 +26,7 @@
 			</view>
 		</view>
 		<view class="my-content">
-			<view class="my-content__list">
+			<view class="my-content__list" @click="openMyArticle">
 				<view class="my-content__list-title">
 					<uni-icons class="icons" type="contact" size="16" color="#666"></uni-icons>
 					<text>我的文章</text>
@@ -56,7 +56,11 @@
 			...mapState(['userinfo'])
 		},
 		methods: {
-
+			openMyArticle () {
+				uni.navigateTo({
+					url: '/pages/my-article/my-article'
+				})
+			}
 		}
 	}
 </script>
