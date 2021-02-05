@@ -7,9 +7,13 @@ Vue.use(Vuex)
 const store = new Vuex.Store({
 	// 数据源
 	state: {
+		userinfo: uni.getStorageSync("USERINFO")  || {},
 		historyLists: uni.getStorageSync("__history")  || []
 	},
 	mutations:{
+		SET_USER_INFO (state,userinfo) {
+			state.userinfo = userinfo
+		},
 		SET_HISTORYLISTS(state,history){
 			state.historyLists = history
 		},
@@ -18,6 +22,10 @@ const store = new Vuex.Store({
 		}
 	},
 	actions:{
+		set_userinfo({commit,state},userinfo){
+			commit('SET_USER_INFO',userinfo)
+			uni.setStorageSync('USERINFO',userinfo)
+		},
 		set_history({commit,state},history){
 			let list = state.historyLists
 			list.unshift(history)

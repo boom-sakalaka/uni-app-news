@@ -84,3 +84,10 @@ export const get_author = (data) => {
 		data
 	})
 }
+
+export const get_user = (data) => {
+	return $http({
+		url: 'get_user',
+		data
+	})
+}

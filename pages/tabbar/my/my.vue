@@ -2,26 +2,26 @@
 	<view>
 		<view class="my-header">
 			<view class="my-header__background">
-				<image src="/static/logo.png" mode="aspectFill"></image>
+				<image :src="userinfo.avatar" mode="aspectFill"></image>
 			</view>
 			<view class="my-header__logo">
 				<view class="my-header__logo-box">
-					<image src="/static/logo.png" mode="aspectFill"></image>
+					<image :src="userinfo.avatar" mode="aspectFill"></image>
 				</view>
-				<text class="my-header__name">meHao</text>
+				<text class="my-header__name">{{userinfo.author_name}}</text>
 			</view>
 			<view class="my-header__info">
 				<view class="my-header__info-box">
 					<text class="my-header__info-title">被关注</text>
-					<text>123</text>
+					<text>{{userinfo.follow || 0}}</text>
 				</view>
 				<view class="my-header__info-box">
 					<text class="my-header__info-title">粉丝</text>
-					<text>123</text>
+					<text>{{userinfo.fans_count || 0 }}</text>
 				</view>
 				<view class="my-header__info-box">
 					<text class="my-header__info-title">积分</text>
-					<text>123</text>
+					<text>{{userinfo.integral_count || 0}}</text>
 				</view>
 			</view>
 		</view>
@@ -45,11 +45,15 @@
 </template>
 
 <script>
+	import { mapState } from 'vuex'
 	export default {
 		data() {
 			return {
 
 			}
+		},
+		computed:{
+			...mapState(['userinfo'])
 		},
 		methods: {
 
